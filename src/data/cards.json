@@ -1,0 +1,38 @@
+[
+  {
+    "id": "uv_01",
+    "name": "Mestre Doutor",
+    "faction": "União Vermelha",
+    "cost": 8,
+    "attack": 2500,
+    "defense": 2000,
+    "flavor": "A doutrina nasce na sombra das celas e floresce no concreto."
+  },
+  {
+    "id": "tbp_01",
+    "name": "Visconde do Complexo",
+    "faction": "Terceiro Bloco Puro",
+    "cost": 7,
+    "attack": 2200,
+    "defense": 2600,
+    "flavor": "Munição não é despesa, é infraestrutura."
+  },
+  {
+    "id": "ada_01",
+    "name": "Bebê da Rocinha",
+    "faction": "Aliança dos Aliados",
+    "cost": 3,
+    "attack": 1400,
+    "defense": 1000,
+    "flavor": "Você não pode alvejar aquilo que não vê chegar."
+  },
+  {
+    "id": "pm_01",
+    "name": "Capitão da Reserva",
+    "faction": "A Liga Paramilitar",
+    "cost": 9,
+    "attack": 2800,
+    "defense": 3000,
+    "flavor": "A farda pode ter ficado no armário, mas o sistema de controle continua implacável."
+  }
+]

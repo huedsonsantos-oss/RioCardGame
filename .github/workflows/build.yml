@@ -1,0 +1,64 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Configure EAS
+        run: |
+          echo "EXPO_TOKEN=${{ secrets.EXPO_TOKEN }}" >> $GITHUB_ENV
+          echo "EAS_PROJECT_ID=${{ secrets.EAS_PROJECT_ID }}" >> $GITHUB_ENV
+
+      - name: Build Android APK
+        run: |
+          eas build --platform android --profile preview --non-interactive --no-wait
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
+
+      - name: Wait for build and download artifact
+        if: always()
+        run: |
+          BUILD_ID=$(eas build:list --platform=android --limit=1 --json | jq -r '.[0].id')
+          echo "Build ID: $BUILD_ID"
+          eas build:view $BUILD_ID --json > build-info.json
+          ARTIFACT_URL=$(jq -r '.artifacts.buildUrl' build-info.json)
+          echo "Artifact URL: $ARTIFACT_URL"
+          if [ "$ARTIFACT_URL" != "null" ] && [ -n "$ARTIFACT_URL" ]; then
+            curl -L "$ARTIFACT_URL" -o RioCardGame.apk
+            echo "APK downloaded successfully"
+          else
+            echo "Build still in progress or failed. Check Expo dashboard."
+            exit 1
+          fi
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RioCardGame-APK
+          path: RioCardGame.apk
+          retention-days: 30
