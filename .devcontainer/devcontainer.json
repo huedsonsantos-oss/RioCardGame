@@ -12,7 +12,7 @@
       "extensions": [
         "expo.vscode-expo-tools",
         "ms-vscode.vscode-typescript-next",
-        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode"
       ],
       "settings": {
@@ -26,7 +26,7 @@
     "8081": { "label": "Expo Metro", "onAutoForward": "notify" },
     "19000": { "label": "Expo DevTools", "onAutoForward": "notify" }
   },
-  "postCreateCommand": "npm install && npm install -g eas-cli expo-cli",
+  "postCreateCommand": "npm install && npm install -g eas-cli expo-cli && npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks eslint-plugin-react-native eslint-config-prettier prettier",
   "postStartCommand": "echo '🚀 RioCardGame pronto! Rode: npx expo start --tunnel'",
   "remoteUser": "node"
 }
