@@ -1,0 +1,32 @@
+{
+  "name": "RioCardGame Expo",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/android-sdk:1": {
+      "version": "34",
+      "ndkVersion": "26.1.10909125"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "expo.vscode-expo-tools",
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
+    }
+  },
+  "forwardPorts": [8081, 8082, 8083, 19000, 19001, 19002, 19003, 19004, 19005, 19006],
+  "portsAttributes": {
+    "8081": { "label": "Expo Metro", "onAutoForward": "notify" },
+    "19000": { "label": "Expo DevTools", "onAutoForward": "notify" }
+  },
+  "postCreateCommand": "npm install && npm install -g eas-cli expo-cli",
+  "postStartCommand": "echo '🚀 RioCardGame pronto! Rode: npx expo start --tunnel'",
+  "remoteUser": "node"
+}
